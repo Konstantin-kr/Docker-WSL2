@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  backend:
+    external: true
+
+services:
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin 
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    volumes:
+      - ./config.user.inc.php:/etc/phpmyadmin/config.user.inc.php 
+    environment:
+      # Указываем контейнеры и порты с которыми phpmyadmin взаимодействует
+      PMA_HOSTS: mysql_57,mysql_8019,mysql_8030
+      PMA_PORTS: 3306,3307,3308
+    networks:
+      - backend

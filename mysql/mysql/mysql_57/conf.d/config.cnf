@@ -1,0 +1,13 @@
+[mysqld]
+slow_query_log = 1
+long_query_time = 1 # нужное количество в секундах
+slow_query_log_file = /var/log/mysql/mysql-slow.log
+
+log_error = /var/log/mysql/error.log
+log_timestamps = SYSTEM
+
+
+max_connections = 800
+max_allowed_packet = 64M
+interactive_timeout = 300
+wait_timeout = 300

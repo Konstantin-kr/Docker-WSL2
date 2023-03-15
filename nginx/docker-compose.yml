@@ -1,0 +1,19 @@
+version: '3'
+
+networks:
+  backend:
+    external: true
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ~/docker/www:/var/www
+      - ./conf.d:/etc/nginx/conf.d
+      - ./logs:/var/log/nginx
+    networks:
+      - backend
+      

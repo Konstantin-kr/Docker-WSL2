@@ -1,0 +1,41 @@
+version: '3'
+
+networks:
+  backend:
+    external: true
+
+services:
+  elasticsearch662:
+    container_name: elasticsearch662
+    build: ./6.6.2
+    #image: markoshust/magento-elasticsearch:7.17-0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    env_file: ~/docker2/elasticsearch/6.6.2/elasticsearch.env
+    environment:
+      - "discovery.type=single-node"
+      - "cluster.name=docker-cluster"
+      ## Avoid test failures due to small disks
+      ## More info at https://github.com/markshust/docker-magento/issues/488
+      - "cluster.routing.allocation.disk.threshold_enabled=false"
+      - "index.blocks.read_only_allow_delete"
+    networks:
+        - backend
+        
+#  elasticsearch717:
+#    container_name: elasticsearch717
+#    build: ./7.17
+    #image: markoshust/magento-elasticsearch:7.17-0
+#    ports:
+#      - "9200:9200"
+#      - "9300:9300"
+#    env_file: ~/docker/elasticsearch/7.17/elasticsearch.env
+#    environment:
+#      - "discovery.type=single-node"
+      ## Avoid test failures due to small disks
+      ## More info at https://github.com/markshust/docker-magento/issues/488
+#      - "cluster.routing.allocation.disk.threshold_enabled=false"
+#      - "index.blocks.read_only_allow_delete"
+#    networks:
+#        - backend
