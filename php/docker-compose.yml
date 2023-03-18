@@ -1,3 +1,9 @@
+#
+# Файл php.ini  - конфиг PHP
+# Файл www.conf - конфиг FPM
+#
+
+
 version: '3'
 
 networks:
@@ -7,24 +13,31 @@ networks:
 services:
   php56:
     container_name: php56
-    # Собираем образ PHP на основе Dockerfile
+    # у нас свой образ для PHP, говорим что его надо собрать
     build: ./php/5.6
-    # монтируем директорию с проектами
     volumes:
       - ~/docker/www:/var/www
+      - ~/docker/php/php/5.6/php.ini:/usr/local/etc/php/php.ini
+      - ~/docker/php/php/5.6/www.conf:/usr/local/etc/php-fpm.d/www.conf
     networks:
         - backend
+        
   php72:
     container_name: php72
     build: ./php/7.2
     volumes:
       - ~/docker/www:/var/www
+      - ~/docker/php/php/7.2/php.ini:/usr/local/etc/php/php.ini
+      - ~/docker/php/php/7.2/www.conf:/usr/local/etc/php-fpm.d/www.conf
     networks:
         - backend
+        
   php81:
     container_name: php81
     build: ./php/8.1
     volumes:
       - ~/docker/www:/var/www
+      - ~/docker/php/php/8.1/php.ini:/usr/local/etc/php/php.ini
+      - ~/docker/php/php/8.1/www.conf:/usr/local/etc/php-fpm.d/www.conf
     networks:
         - backend
